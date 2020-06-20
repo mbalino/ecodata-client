@@ -1,0 +1,22 @@
+* {
+    font-family: Proxima Nova, -apple-system, Helvetica Neue, Helvetica, Roboto,
+        Arial, sans-serif;
+}
+
+
+.logo {
+    resize: both;
+    size: 20px;
+}
+
+#main {
+}
+
+#maindiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}

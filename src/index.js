@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/style.css';
+import Container from "react-bootstrap/Container";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// Importing the Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <Container id="main" fluid={"md"}>
+          <div id="maindiv">
+            <App />
+          </div>
+      </Container>
   </React.StrictMode>,
   document.getElementById('root')
 );
