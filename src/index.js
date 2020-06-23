@@ -4,6 +4,7 @@ import './styles/style.css';
 import Container from "react-bootstrap/Container";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import UserProvider from "./providers/UserProvider";
 
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,13 +12,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Container id="main" fluid={"md"}>
-          <div id="maindiv">
-            <App />
-          </div>
-      </Container>
+        <UserProvider>
+          <Container id="main" fluid={"md"}>
+              <div id="maindiv">
+                <App />
+              </div>
+          </Container>
+        </UserProvider>
   </React.StrictMode>,
+
   document.getElementById('root')
+
 );
 
 // If you want your app to work offline and load faster, you can change
