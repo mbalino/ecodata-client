@@ -1,8 +1,8 @@
 import React, {  useState } from "react";
-import Link from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import { auth, signInWithGoogle, generateUserDocument } from "./utils/firebase";
 
-const SignUp = () => {
+function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [displayName, setDisplayName] = useState("");
@@ -50,51 +50,63 @@ const SignUp = () => {
                         {error}
                     </div>
                 )}
-                <form>
-                    <label htmlFor="displayName">
-                        Display Name:
-                    </label>
-                    <input
-                        type="text"
-                        name="displayName"
-                        value={displayName}
-                        placeholder="Your name"
-                        id="displayName"
-                        onChange={event => onChangeHandler(event)}
-                    />
-                    <label htmlFor="userEmail">
-                        Email:
-                    </label>
-                    <input
-                        type="email"
-                        name="userEmail"
-                        value={email}
-                        placeholder="mail@example.com"
-                        id="userEmail"
-                        onChange={event => onChangeHandler(event)}
-                    />
-                    <label htmlFor="userPassword">
-                        Password:
-                    </label>
-                    <input
-                        type="password"
-                        name="userPassword"
-                        value={password}
-                        placeholder="Your Password"
-                        id="userPassword"
-                        onChange={event => onChangeHandler(event)}
-                    />
-                    <button
-                        onClick={event => {
+                <Form>
+                    <Form.Group controlId={"formSignUp"}>
+                        <Row>
+                            <Col>
+                                <Form.Label>
+                                        Display Name:
+                                </Form.Label>
+                                <Form.Control placeholder={"Your Name"}
+                                              type={"text"}
+                                              id={"displayName"}
+                                              value={displayName}
+                                              onChange={event => onChangeHandler(event)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Label>
+                                    Email:
+                                </Form.Label>
+                                <Form.Control placeholder={"mail@example.com"}
+                                              type={"email"}
+                                              id={"userEmail"}
+                                              value={email}
+                                              onChange={event => onChangeHandler(event)}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Label>
+                                    Password:
+                                </Form.Label>
+                                <Form.Control placeholder={"mail@example.com"}
+                                              type={"password"}
+                                              id={"userPassword"}
+                                              value={password}
+                                              onChange={event => onChangeHandler(event)}
+                                />
+                            </Col>
+                        </Row>
+                    </Form.Group>
+                    <br />
+                    <Button variant={"primary"}
+                            onClick={event => {
                             createUserWithEmailAndPasswordHandler(event, email, password);
                         }}
                     >
                         Sign up
-                    </button>
-                </form>
-                <p>or</p>
-                <button
-                    onClick={() => {
+                    </Button>
+                </Form>
+                <p>
+                    <br />
+                    or
+                </p>
+                <Button variant={"primary"}
+                        onClick={() => {
                         try {
                             signInWithGoogle();
                         } catch (error) {
@@ -103,16 +115,17 @@ const SignUp = () => {
                     }}
                 >
                     Sign In with Google
-                </button>
+                </Button>
+                <br /><br />
                 <p>
                     Already have an account?{" "}
-                    <Link href={"/"}>
+                    <a href={"/"}>
                         Sign in here
-                    </Link>{" "}
+                    </a>{" "}
                 </p>
             </div>
         </div>
     );
-};
+}
 
 export default SignUp;

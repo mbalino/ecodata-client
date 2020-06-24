@@ -8,7 +8,7 @@ import Table from "react-bootstrap/Table";
 import {uniqueId} from "recharts/lib/util/DataUtils";
 import { Chart } from 'react-google-charts';
 
-export default class Dollar extends React.Component {
+class Dollar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -171,3 +171,5 @@ export default class Dollar extends React.Component {
         );
     }
 }
+
+export default Dollar;
