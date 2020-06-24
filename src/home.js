@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Footer from "./components/Footer";
 import UserProfile from "./components/UserProfile";
 import SignIn from "./signIn";
-import UserContext from "./providers/UserProvider";
+import { UserContext } from "./providers/UserProvider";
 
 function Home() {
 
