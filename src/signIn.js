@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { signInWithGoogle } from "./utils/firebase";
 import { auth } from "./utils/firebase";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
-const SignIn = () => {
+function SignIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,41 +33,51 @@ const SignIn = () => {
             <h1>Sign In</h1>
             <div>
                 {error !== null && <div>{error}</div>}
-                <form>
-                    <label htmlFor="userEmail">
-                        Email:
-                    </label>
-                    <input
-                        type="email"
-                        name="userEmail"
-                        value = {email}
-                        placeholder="Your name"
-                        id="userEmail"
-                        onChange = {(event) => onChangeHandler(event)}
-                    />
-                    <label htmlFor="userPassword">
-                        Password:
-                    </label>
-                    <input
-                        type="password"
-                        name="userPassword"
-                        value = {password}
-                        placeholder="Your Password"
-                        id="userPassword"
-                        onChange = {(event) => onChangeHandler(event)}
-                    />
-                    <button onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}>
+                <Form>
+                    <Form.Group controlId={"formSignIn"}>
+                        <Row>
+                            <Col>
+                                <Form.Label column={true}>
+                                    Email:
+                                </Form.Label>
+                                <Form.Control
+                                    placeholder={"Your name"}
+                                    type={"email"}
+                                    id={"userEmail"}
+                                    value={email}
+                                    onChange={(event) => onChangeHandler(event)}
+                                />
+                            </Col>
+                            <Col>
+                                <Form.Label column={true}>
+                                    Password:
+                                </Form.Label>
+                                <Form.Control
+                                    placeholder={"Your password"}
+                                    type={"password"}
+                                    id={"userPassword"}
+                                    value={password}
+                                    onChange={(event) => onChangeHandler(event)}
+                                />
+                            </Col>
+                        </Row>
+                    </Form.Group>
+                    <br />
+                    <Button
+                        variant={"primary"}
+                        onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
+                    >
                         Sign in
-                    </button>
-                </form>
+                    </Button>
+                </Form>
                 <p>or</p>
-                <button
-                    onClick={() => {
-                        signInWithGoogle();
-                    }}
-                >
+                <Button variant={"primary"}
+                        onClick={() => {
+                            signInWithGoogle();
+                        }}>
+
                     Sign in with Google
-                </button>
+                </Button>
                 <p>
                     Don't have an account?{" "}
                     <a href={"signUp"}>
@@ -80,6 +91,6 @@ const SignIn = () => {
             </div>
         </div>
     );
-};
+}
 
 export default SignIn;
