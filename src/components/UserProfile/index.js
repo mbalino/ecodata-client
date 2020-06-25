@@ -10,13 +10,13 @@ function UserProfile() {
 
     return (
         <>
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '15rem' }}>
                 <Card.Img variant="top"
                           src={ photoURL || 'images/silueta.png' }
                 />
                 <Card.Body>
                     <Card.Title>{displayName}</Card.Title>
-                    <Card.Text>
+                    <Card.Text className="mb-10 text-muted">
                         {email}
                     </Card.Text>
                     <Button variant={"primary"}

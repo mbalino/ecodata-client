@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import Button from "react-bootstrap/Button";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Container from "react-bootstrap/Container";
+import {Button, Jumbotron, Container, Row, Col} from "react-bootstrap";
 import Footer from "./components/Footer";
 import UserProfile from "./components/UserProfile";
 import SignIn from "./signIn";
@@ -13,26 +11,33 @@ function Home() {
 
     return (
         <>
-            <Jumbotron fluid>
-                <Container>
-                    <h1>Welcome to EcoData</h1>
-                    <p>
-                        Economic data dashboard
-                    </p>
-                    <hr/>
-                    <Button size={"lg"} href={"dollar"}>Dollar</Button>
-                </Container>
-            </Jumbotron>
-
-            {
-                user ?
-                    <UserProfile />
-                    :
-                    <SignIn path="/" />
-            }
-
-            <Footer />
-
+            <Container>
+                <Row>
+                    <Col sm={8}>
+                        <Jumbotron fluid>
+                            <h1>Welcome to EcoData</h1>
+                            <p>
+                                Economic data dashboard
+                            </p>
+                            <hr/>
+                            <Button size={"lg"} href={"dollar"}>Dollar</Button>
+                        </Jumbotron>
+                    </Col>
+                    <Col xs sm={4}>
+                        {
+                            user ?
+                                <UserProfile />
+                                :
+                                <SignIn path="/" />
+                        }
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Footer />
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 }

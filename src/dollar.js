@@ -1,14 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import { Ellipsis } from "react-awesome-spinners";
-import {ButtonGroup} from "react-bootstrap";
-import Footer from "./components/Footer";
-import Table from "react-bootstrap/Table";
-import {uniqueId} from "recharts/lib/util/DataUtils";
+import { Button, ButtonGroup, Table, Alert } from "react-bootstrap";
+import { uniqueId } from "recharts/lib/util/DataUtils";
 import { Chart } from 'react-google-charts';
+import Footer from "./components/Footer";
+import { UserContext } from "./providers/UserProvider";
 
-class Dollar extends React.Component {
+class Dollar extends Component {
+
+    static contextType = UserContext;
 
     constructor(props) {
         super(props);
@@ -16,6 +17,8 @@ class Dollar extends React.Component {
         this.moreSamples = this.moreSamples.bind(this);
         this.handleResize = this.handleResize.bind(this);
     }
+
+
 
     state = {
             fakeControls: [],
@@ -68,6 +71,7 @@ class Dollar extends React.Component {
     }
 
     componentDidMount() {
+
         this.handleResize();
 
         window.addEventListener('resize', this.handleResize);
@@ -104,70 +108,81 @@ class Dollar extends React.Component {
         window.removeEventListener('resize', this.handleResize);
     }
 
-
     render() {
+        let user = this.context;
 
         return (
             <>
-            {!this.state.done ? (
-                <Ellipsis />
-                ):
-                    (
+            {
+                user ?
                         <>
-                        <div>
-                            <div>
-                                <h3>Cotizaciones ({ this.state.results.length }) Escala de muestra: {this.state.sampleCount}</h3>
-                                <h4>{this.state.graphWidth}</h4>
-                                <Button variant={"secondary"} href={"/"}>Back</Button>
-                                <ButtonGroup>
-                                    <Button variant={"secondary"} href={"#"} onClick={this.lessSamples}>+</Button>
-                                    <Button variant={"secondary"} href={"#"} onClick={this.moreSamples}>-</Button>
-                                </ButtonGroup>
-                                <br/>
-                            </div>
-                            <div>
-                                <Chart
-                                    controls = { this.state.fakeControls }
-                                    width={this.state.graphWidth.toString() + 'px'}
-                                    height={'300px'}
-                                    chartType={"LineChart"}
-                                    loader={<div>Loading Chart</div>}
-                                    data={ this.state.graph }
-                                    getChartWrapper={chartWrapper => {
-                                        chartWrapper.draw();
-                                    }}
-                                    options={{
-                                        hAxis: {
-                                            title: 'Price',
-                                        },
-                                        vAxis: {
-                                            title: 'Date',
-                                        }
-                                    }}
-                                    rootProps={{ 'data-testid': '1' }}
-                                />
-                            </div>
-                            <Table striped bordered hover>
-                                <thead  className="thead-dark">
-                                <tr>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Valor</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.sample.map((result) => (
-                                    <tr key={uniqueId()}>
-                                        <td key={uniqueId()}>{result.fecha}</td>
-                                        <td key={uniqueId()}>{result.ars}</td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </Table>
-                            <Footer />
-                        </div>
-                        </>
-                    )}
-    </>
+                        {!this.state.done ? (
+                                <Ellipsis />
+                            ):
+                            (
+                                <>
+                                    <div>
+                                        <div>
+                                            <h3>Cotizaciones ({ this.state.results.length }) Escala de muestra: {this.state.sampleCount}</h3>
+                                            <h4>{this.state.graphWidth}</h4>
+                                            <Button variant={"secondary"} href={"/"}>Back</Button>
+                                            <ButtonGroup>
+                                                <Button variant={"secondary"} href={"#"} onClick={this.lessSamples}>+</Button>
+                                                <Button variant={"secondary"} href={"#"} onClick={this.moreSamples}>-</Button>
+                                            </ButtonGroup>
+                                            <br/>
+                                        </div>
+                                        <div>
+                                            <Chart
+                                                controls = { this.state.fakeControls }
+                                                width={this.state.graphWidth.toString() + 'px'}
+                                                height={'300px'}
+                                                chartType={"LineChart"}
+                                                loader={<div>Loading Chart</div>}
+                                                data={ this.state.graph }
+                                                getChartWrapper={chartWrapper => {
+                                                    chartWrapper.draw();
+                                                }}
+                                                options={{
+                                                    hAxis: {
+                                                        title: 'Price',
+                                                    },
+                                                    vAxis: {
+                                                        title: 'Date',
+                                                    }
+                                                }}
+                                                rootProps={{ 'data-testid': '1' }}
+                                            />
+                                        </div>
+                                        <Table striped bordered hover>
+                                            <thead  className="thead-dark">
+                                            <tr>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Valor</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {this.state.sample.map((result) => (
+                                                <tr key={uniqueId()}>
+                                                    <td key={uniqueId()}>{result.fecha}</td>
+                                                    <td key={uniqueId()}>{result.ars}</td>
+                                                </tr>
+                                            ))}
+                                            </tbody>
+                                        </Table>
+                                        <Footer />
+                                    </div>
+                                </>
+                            )}
+                    </>
+                    :
+                    <>
+                        <Alert variant={"primary"}>
+                            Unauthenticated access is not allowed.
+                        </Alert>
+                    </>
+            }
+            </>
         );
     }
 }
