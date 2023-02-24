@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
-    "axios": "^0.21.0",
+    "axios": "^0.21.2",
     "bootstrap": "^4.5.2",
     "firebase": "^8.0.0",
     "react": "^16.14.0",
